@@ -19,6 +19,6 @@ def do_pack():
     local("mkdir -p versions")
     result = local(f"tar -czvf versions/web_static_{time}.tgz web_static")
     if result.succeeded:
-        return result
+        return (f"versions/web_static_{time}.tgz")
     else:
         return None
