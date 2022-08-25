@@ -20,6 +20,6 @@ def do_pack():
     result = local("tar -czvf versions/web_static_{}.tgz \
         web_static".format(time))
     if result.succeeded:
-        return (f"versions/web_static_{time}.tgz")
+        return ("versions/web_static_{}.tgz".format(time))
     else:
         return None
