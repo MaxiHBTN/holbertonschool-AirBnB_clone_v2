@@ -17,7 +17,8 @@ def do_pack():
 
     time = datetime.utcnow().strftime("%Y%m%d%H%M%S")
     local("mkdir -p versions")
-    result = local(f"tar -czvf versions/web_static_{time}.tgz web_static")
+    result = local("tar -czvf versions/web_static_{}.tgz \
+        web_static".format(time))
     if result.succeeded:
         return (f"versions/web_static_{time}.tgz")
     else:
