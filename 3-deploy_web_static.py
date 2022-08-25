@@ -20,9 +20,10 @@ def do_pack():
 
     time = datetime.utcnow().strftime("%Y%m%d%H%M%S")
     local("mkdir -p versions")
-    result = local(f"tar -czvf versions/web_static_{time}.tgz web_static")
+    result = local("tar -czvf versions/web_static_{}.tgz \
+        web_static".format(time))
     if result.succeeded:
-        return (f"versions/web_static_{time}.tgz")
+        return ("versions/web_static_{}.tgz".format(time))
     else:
         return None
 
@@ -36,22 +37,23 @@ def do_deploy(archive_path):
         filename = archive_path.split("/")[-1]
         filename_noext = filename.split(".")[0]
         put(archive_path, "/tmp/")
-        r1 = run(f"mkdir -p /data/web_static/releases/{filename_noext}")
-        r2 = run(f"tar -xzf /tmp/{filename} -C \
-            /data/web_static/releases/{filename_noext}/")
-        r3 = run(f"rm /tmp/{filename}")
-        r1 = run(f"mv /data/web_static/releases/{filename_noext}/web_static/* \
-            /data/web_static/releases/{filename_noext}/")
-        r4 = run(f"rm -rf /data/web_static/releases/\
-            {filename_noext}/web_static")
-        r5 = run(f"rm -rf /data/web_static/current")
-        r6 = run(f"ln -s /data/web_static/releases/{filename_noext}/ \
-            /data/web_static/current")
-        if (r1.failed or r2.failed or r3.failed or
-                r4.failed or r5.failed or r6.failed):
-            return True
+        r1 = run("mkdir -p /data/web_static/releases/\
+{}".format(filename_noext))
+        r2 = run("tar -xzf /tmp/{} -C /data/web_static/releases/\
+{}/".format(filename, filename_noext))
+        r3 = run("rm /tmp/{}".format(filename))
+        r4 = run("mv /data/web_static/releases/{}/web_static/*\
+ /data/web_static/releases/{}/".format(filename_noext, filename_noext))
+        r5 = run("rm -rf /data/web_static/releases/\
+{}/web_static".format(filename_noext))
+        r6 = run("rm -rf /data/web_static/current")
+        r7 = run("ln -s /data/web_static/releases/{}/\
+ /data/web_static/current".format(filename_noext))
+        if (r1.failed or r2.failed or r3.failed or r4.failed or
+                r5.failed or r6.failed or r7.failed):
+            return False
     else:
-        return False
+        return True
 
 
 def deploy():
