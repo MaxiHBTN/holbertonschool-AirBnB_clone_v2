@@ -67,5 +67,8 @@ class FileStorage:
             pass
 
     def close(self):
-        """task 7"""
+        """
+        Close method
+        """
+        
         self.reload()
