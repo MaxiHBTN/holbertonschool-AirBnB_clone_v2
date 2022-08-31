@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 
 @app.teardown_appcontext
-def teardon_appcontext():
+def teardon_appcontext(self):
     storage.close()
 
 
