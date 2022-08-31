@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block body %}
+   <h1>States</h1>
+   <ul id="states">
+    {% for state in states %}
+        <li>{{ state.id }} <b>state.name</b></li>
+    {% endfor %}
+    </ul>
+
+{% endblock %}
