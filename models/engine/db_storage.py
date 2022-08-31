@@ -87,3 +87,7 @@ class DBStorage:
                                       expire_on_commit=False)
         Session = scoped_session(create_session)
         self.__session = Session
+
+    def close(self):
+        """task 7"""
+        self.__session.remove()
