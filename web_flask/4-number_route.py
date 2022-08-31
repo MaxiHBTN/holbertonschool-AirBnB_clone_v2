@@ -38,5 +38,13 @@ def python(text):
     return "Python {}".format(text.replace('_', ' '))
 
 
+@app.route("/number/<int:n>", strict_slashes=False)
+def number(n):
+    """
+    starts a Flask web application, /number/<int:n>: display “n is a number”
+    """
+    return "{} is a number".format(n)
+
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)

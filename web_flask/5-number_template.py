@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """script that starts a Flask web application"""
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
@@ -36,6 +36,22 @@ def python(text):
     starts a Flask web application, /python: display “Python + text”
     """
     return "Python {}".format(text.replace('_', ' '))
+
+
+@app.route("/number/<int:n>", strict_slashes=False)
+def number(n):
+    """
+    starts a Flask web application, /number/<int:n>: display “n is a number”
+    """
+    return "{} is a number".format(n)
+
+
+@app.route("/number_template/<int:n>", strict_slashes=False)
+def number_template(n):
+    """
+    starts a Flask web application, /number/<int:n>: display “n is a number”
+    """
+    return render_template("5-number.html", n=n)
 
 
 if __name__ == "__main__":
