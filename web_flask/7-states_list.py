@@ -15,9 +15,9 @@ def teardon_appcontext():
 
 
 @app.route("/states_list", strict_slashes=False)
-def states_listn():
+def states_list():
     states = storage.all("State").values()
-    return render_template("7-states_list.html")
+    return render_template("7-states_list.html", states=states)
 
 
 if __name__ == "__main__":
