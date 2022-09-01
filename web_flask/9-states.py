@@ -13,10 +13,12 @@ app = Flask(__name__)
 def teardon_appcontext(self):
     storage.close()
 
+
 @app.route("/states", strict_slashes=False)
 def states():
     states = storage.all("State").values()
     return render_template("9-states.html", states=states)
+
 
 @app.route("/states/<id>", strict_slashes=False)
 def states_id(id):
