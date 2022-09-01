@@ -44,18 +44,22 @@ class DBStorage:
         """
         All
         """
-        classes = {
-               'User': User, 'Place': Place,
-               'State': State, 'City': City, 'Amenity': Amenity,
-               'Review': Review
-              }
+        classes = {'User': User, 'State': State, 'City': City,
+                        'Amenity': Amenity, 'Place': Place, 'Review': Review}
         new_dict = {}
-        for clss in classes:
-            if cls is None or cls == classes[clss]:
-                objects = self.__session.query(classes[clss]).all()
-                for obj in objects:
-                    key = type(obj).__name__ + '.' + obj.id
+
+        if cls is None:
+            for my_type in classes.keys():
+                for obj in self.__session.query(classes[my_type]).all():
+                    key = obj.__class__.__name__ + '.' + obj.id
                     new_dict[key] = obj
+        else:
+            if isinstance(cls, str):
+                cls = classes[cls]
+            for obj in self.__session.query(cls).all():
+                key = obj.__class__.__name__ + '.' + obj.id
+                new_dict[key] = obj
+
         return new_dict
 
     def new(self, obj):
@@ -93,4 +97,4 @@ class DBStorage:
         Close method
         """
         
-        self.__session.remove()
+        self.__session.close()
