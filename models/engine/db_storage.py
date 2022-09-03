@@ -45,7 +45,7 @@ class DBStorage:
         All
         """
         classes = {'User': User, 'State': State, 'City': City,
-                        'Amenity': Amenity, 'Place': Place, 'Review': Review}
+                   'Amenity': Amenity, 'Place': Place, 'Review': Review}
         new_dict = {}
 
         if cls is None:
@@ -96,5 +96,5 @@ class DBStorage:
         """
         Close method
         """
-        
+
         self.__session.close()

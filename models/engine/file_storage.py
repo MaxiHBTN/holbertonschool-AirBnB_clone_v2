@@ -70,5 +70,5 @@ class FileStorage:
         """
         Close method
         """
-        
+
         self.reload()
